@@ -1,6 +1,5 @@
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaVideo
-from flask import Flask, request
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Bot tokenini kiriting
 bot_token = '7649991283:AAFZRW61oD2cWgru6J1J1-yKGBpsYSU1Rhk'
@@ -12,12 +11,12 @@ admin_usernames = ['orzubek_temirov']  # Admin usernamesini qo'shing
 # Majburiy kanallar
 channels = [
     ('Kanal 1➕', 'https://t.me/Orzubek155'),
-    ('Kanal 2➕', 'https://t.me/Orzubek156'),
+    ('Kanal 2➕', 'https://t.me/orzubek156'),
 ]
 
 # Nomzodlar va ularning ovozlari (video fayllar bilan)
 candidates = {
-    'Raximova Munira': {'uz': 'uz.mp4', 'votes': 0},
+    'Raximova Munira': {'video_file': 'path_to_video_file1.mp4', 'votes': 0},
     'Qambarova Zarifa': {'video_file': 'path_to_video_file2.mp4', 'votes': 0},
     'Narbayeva Iqbol': {'video_file': 'path_to_video_file3.mp4', 'votes': 0},
     'Alibekova O`g`iloy': {'video_file': 'path_to_video_file4.mp4', 'votes': 0},
@@ -31,16 +30,6 @@ candidates = {
 
 # Foydalanuvchilar ovozlari uchun
 user_votes = {}
-
-# Flask dasturini yaratish
-app = Flask(__name__)
-
-# Webhook URL sozlamalari
-WEBHOOK_URL = f'https://bot.dostlik-akm.uz/{bot_token}'
-
-# Webhookni o'rnatish
-bot.remove_webhook()
-bot.set_webhook(url=WEBHOOK_URL)
 
 # /start komandasi
 @bot.message_handler(commands=['start'])
@@ -180,13 +169,5 @@ def share_candidate(call):
     message = f"{candidate_name}:\nIltimos, ovoz berish uchun quyidagi tugmani bosing:"
     bot.send_message(call.message.chat.id, message, reply_markup=markup)
 
-# Webhook endpoint
-@app.route('/' + bot_token, methods=['POST'])
-def webhook():
-    json_str = request.get_data().decode('UTF-8')
-    update = telebot.types.Update.de_json(json_str)
-    bot.process_new_updates([update])
-    return "OK", 200
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+# Pollingni boshlash
+bot.polling(none_stop=True, interval=0)
