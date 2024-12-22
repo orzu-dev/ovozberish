@@ -3,21 +3,21 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMedia
 from flask import Flask, request
 
 # Bot tokenini kiriting
-bot_token = '8068383007:AAFU6IaGQSCJeoJcQkghEB_I_rd295mC1hY'
+bot_token = '7649991283:AAFZRW61oD2cWgru6J1J1-yKGBpsYSU1Rhk'
 bot = telebot.TeleBot(bot_token)
 
 # Admin usernamesi
-admin_usernames = ['NarbayevUtkirbek_95']  # Admin usernamesini qo'shing
+admin_usernames = ['orzubek_temirov']  # Admin usernamesini qo'shing
 
 # Majburiy kanallar
 channels = [
-    ('Kanal 1➕', 'https://t.me/onlinesearchbook'),
-    ('Kanal 2➕', 'https://t.me/tabriknoma_uzbekistann'),
+    ('Kanal 1➕', 'https://t.me/Orzubek155'),
+    ('Kanal 2➕', 'https://t.me/Orzubek156'),
 ]
 
 # Nomzodlar va ularning ovozlari (video fayllar bilan)
 candidates = {
-    'Raximova Munira': {'video_file': 'videos/uz.mp4', 'votes': 0},
+    'Raximova Munira': {'uz': 'uz.mp4', 'votes': 0},
     'Qambarova Zarifa': {'video_file': 'path_to_video_file2.mp4', 'votes': 0},
     'Narbayeva Iqbol': {'video_file': 'path_to_video_file3.mp4', 'votes': 0},
     'Alibekova O`g`iloy': {'video_file': 'path_to_video_file4.mp4', 'votes': 0},
