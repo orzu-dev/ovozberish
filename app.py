@@ -127,7 +127,7 @@ def candidate_menu(call):
     markup.add(InlineKeyboardButton(
         text="⬅️Orqaga", callback_data="vote_menu"))
 
-    bot.send_message(chat_id, f"{candidate_name}:
+    bot.send_message(chat_id, f"{candidate_name}: {candidate_description}")
 Video: {candidate_info['video']}
 Ovozlar: {candidate_info['votes']}", reply_markup=markup)
 
