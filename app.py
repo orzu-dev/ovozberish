@@ -127,9 +127,9 @@ def candidate_menu(call):
     markup.add(InlineKeyboardButton(
         text="⬅️Orqaga", callback_data="vote_menu"))
 
-    bot.send_message(chat_id, f"{candidate_name}: {candidate_description}")
-Video: {candidate_info['video']}
-bot.send_message(chat_id, f"Ovozlar: {candidate_info['votes']}", reply_markup=markup)
+    # Ovozlar va video haqida ma'lumot
+    bot.send_message(chat_id, f"{candidate_name}: Video: {candidate_info['video']}")
+    bot.send_message(chat_id, f"Ovozlar: {candidate_info['votes']}", reply_markup=markup)
 
 # Ovoz berish funksiyasi
 @bot.callback_query_handler(func=lambda call: call.data.startswith('vote_'))
@@ -163,9 +163,7 @@ def share_candidate(call):
     markup.add(InlineKeyboardButton(text="Ovoz berish",
                url=f"https://t.me/{bot_username}?start=1"))
 
-    message = f"{candidate_name}: \nAdditional info here"
-Video: {candidate_info['video']}
-"Iltimos, ovoz berish uchun quyidagi tugmani bosing:"
+    message = f"{candidate_name}: \nIltimos, ovoz berish uchun quyidagi tugmani bosing:\nVideo: {candidate_info['video']}"
     bot.send_message(call.message.chat.id, message, reply_markup=markup)
 
 # Botni ishga tushirish
