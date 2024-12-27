@@ -163,7 +163,7 @@ def share_candidate(call):
     markup.add(InlineKeyboardButton(text="Ovoz berish",
                url=f"https://t.me/{bot_username}?start=1"))
 
-    message = f"{candidate_name}:
+    message = f"{candidate_name}: \nAdditional info here"
 Video: {candidate_info['video']}
 Iltimos, ovoz berish uchun quyidagi tugmani bosing:"
     bot.send_message(call.message.chat.id, message, reply_markup=markup)
