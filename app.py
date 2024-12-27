@@ -165,7 +165,7 @@ def share_candidate(call):
 
     message = f"{candidate_name}: \nAdditional info here"
 Video: {candidate_info['video']}
-Iltimos, ovoz berish uchun quyidagi tugmani bosing:"
+"Iltimos, ovoz berish uchun quyidagi tugmani bosing:"
     bot.send_message(call.message.chat.id, message, reply_markup=markup)
 
 # Botni ishga tushirish
