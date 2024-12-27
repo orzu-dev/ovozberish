@@ -129,7 +129,7 @@ def candidate_menu(call):
 
     bot.send_message(chat_id, f"{candidate_name}: {candidate_description}")
 Video: {candidate_info['video']}
-Ovozlar: {candidate_info['votes']}", reply_markup=markup)
+bot.send_message(chat_id, f"Ovozlar: {candidate_info['votes']}", reply_markup=markup)
 
 # Ovoz berish funksiyasi
 @bot.callback_query_handler(func=lambda call: call.data.startswith('vote_'))
