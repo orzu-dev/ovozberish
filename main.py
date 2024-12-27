@@ -2,7 +2,7 @@ import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Bot tokenini kiriting
-bot_token = '7649991283:AAFZRW61oD2cWgru6J1J1-yKGBpsYSU1Rhk'
+bot_token = '7754547889:AAESsFCSbQETkdXcInBgG4FK4k2f0M17vEs'
 bot = telebot.TeleBot(bot_token)
 
 # Admin usernamesi
@@ -11,21 +11,21 @@ admin_usernames = ['orzubek_temirov']  # Admin usernamesini qo'shing
 # Majburiy kanallar
 channels = [
     ('Kanal 1➕', 'https://t.me/Orzubek155'),
-    ('Kanal 2➕', 'https://t.me/orzubek156'),
+    ('Kanal 2➕', 'https://t.me/Orzubek156'),
 ]
 
-# Nomzodlar va ularning ovozlari (video fayllar bilan)
+# Nomzodlar va ularning ovozlari
 candidates = {
-    'Raximova Munira': {'video_file': 'path_to_video_file1.mp4', 'votes': 0},
-    'Qambarova Zarifa': {'video_file': 'path_to_video_file2.mp4', 'votes': 0},
-    'Narbayeva Iqbol': {'video_file': 'path_to_video_file3.mp4', 'votes': 0},
-    'Alibekova O`g`iloy': {'video_file': 'path_to_video_file4.mp4', 'votes': 0},
-    'Maxmudova Yulduz': {'video_file': 'path_to_video_file5.mp4', 'votes': 0},
-    'Akramova Sevinch': {'video_file': 'path_to_video_file6.mp4', 'votes': 0},
-    'Mamarajabova Sevara': {'video_file': 'path_to_video_file7.mp4', 'votes': 0},
-    'Musurmonova Aziza': {'video_file': 'path_to_video_file8.mp4', 'votes': 0},
-    'Uralova Shoira': {'video_file': 'path_to_video_file9.mp4', 'votes': 0},
-    'Boltayeva Gulnoza': {'video_file': 'path_to_video_file10.mp4', 'votes': 0},
+    'Raximova Munira': {'video': 'https://t.me/onlinesearchbook/314542', 'votes': 0},
+    'Qambarova Zarifa': {'video': 'https://t.me/onlinesearchbook/314534', 'votes': 0},
+    'Narbayeva Iqbol': {'video': 'https://t.me/onlinesearchbook/314538', 'votes': 0},
+    'Alibekova O`g`iloy': {'video': 'https://t.me/onlinesearchbook/314540', 'votes': 0},
+    'Maxmudova Yulduz': {'video': 'https://t.me/onlinesearchbook/314533', 'votes': 0},
+    'Akramova Sevinch': {'video': 'https://t.me/onlinesearchbook/314539', 'votes': 0},
+    'Mamarajabova Sevara': {'video': 'https://t.me/onlinesearchbook/314541', 'votes': 0},
+    'Musurmonova Aziza': {'video': 'https://t.me/onlinesearchbook/314532', 'votes': 0},
+    'Uralova Shoira': {'video': 'https://t.me/onlinesearchbook/314537', 'votes': 0},
+    'Boltayeva Gulnoza': {'video': 'https://t.me/onlinesearchbook/314543', 'votes': 0},
 }
 
 # Foydalanuvchilar ovozlari uchun
@@ -96,8 +96,6 @@ def show_vote_menu(chat_id):
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton(
         text="Ovoz berish🗳", callback_data="vote_menu"))
-    markup.add(InlineKeyboardButton(
-        text="Yangilash", callback_data="refresh"))
     bot.send_message(
         chat_id, "Ovoz berish uchun quyidagi tugmani bosing:", reply_markup=markup)
 
@@ -107,10 +105,8 @@ def vote_menu(call):
     chat_id = call.message.chat.id
     markup = InlineKeyboardMarkup()
 
-    sorted_candidates = sorted(candidates.items(), key=lambda x: x[1]['votes'], reverse=True)
-
-    for i, (name, info) in enumerate(sorted_candidates, 1):
-        button_text = f"{i}-o'rin: {name} - {info['votes']} ovoz"
+    for name, info in candidates.items():
+        button_text = f"{name} - {info['votes']} ovoz"
         markup.add(InlineKeyboardButton(text=button_text,
                    callback_data=f"candidate_{name}"))
 
@@ -131,8 +127,9 @@ def candidate_menu(call):
     markup.add(InlineKeyboardButton(
         text="⬅️Orqaga", callback_data="vote_menu"))
 
-    bot.send_message(chat_id, f"{candidate_name}:\nOvozlar: {candidate_info['votes']}", reply_markup=markup)
-    bot.send_video(chat_id, open(candidate_info['video_file'], 'rb'))  # Video fayl yuboriladi
+    bot.send_message(chat_id, f"{candidate_name}:
+Video: {candidate_info['video']}
+Ovozlar: {candidate_info['votes']}", reply_markup=markup)
 
 # Ovoz berish funksiyasi
 @bot.callback_query_handler(func=lambda call: call.data.startswith('vote_'))
@@ -166,8 +163,12 @@ def share_candidate(call):
     markup.add(InlineKeyboardButton(text="Ovoz berish",
                url=f"https://t.me/{bot_username}?start=1"))
 
-    message = f"{candidate_name}:\nIltimos, ovoz berish uchun quyidagi tugmani bosing:"
+    message = f"{candidate_name}:
+Video: {candidate_info['video']}
+Iltimos, ovoz berish uchun quyidagi tugmani bosing:"
     bot.send_message(call.message.chat.id, message, reply_markup=markup)
 
-# Pollingni boshlash
-bot.polling(none_stop=True, interval=0)
+# Botni ishga tushirish
+if __name__ == "__main__":
+    print("Bot ishga tushirildi...")
+    bot.polling(none_stop=True)
